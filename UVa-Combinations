@@ -1,0 +1,63 @@
+#include<iostream>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+using namespace std;
+
+#define ll long long 
+int gcd(int i, int j)
+{
+	int divCycle = min(i, j) , maxdiv = 0;
+	for (int x = 2; x <= divCycle; x++)
+	{
+		if (i % x == 0 && j % x == 0)
+		{
+			maxdiv = x;
+		}
+	}
+	if (maxdiv > 1)
+		return maxdiv;
+	else
+		return 0;
+}
+int main()
+{
+	ll n, m;
+	
+	while (cin >> n >> m)
+	{
+		if (n == 0)
+			return 0;
+		vector<ll> dem, num;
+		for (ll i = n - m; i >= 1; i--)
+			dem.push_back(i);
+		for (ll i = m; i >= 1; i--)
+			dem.push_back(i);
+		for (ll i = n; i >= 1; i--)
+			num.push_back(i);
+		// gcd betwen the num and dem 
+		for (auto it = num.begin(); it != num.end(); it++)
+		{
+			for (auto ig = dem.begin(); ig != dem.end(); ig++)
+			{
+
+				ll res = gcd(*it, *ig);
+				if (res > 1)
+				{
+					*it /= res;
+					*ig /= res;
+				}
+			}
+		}
+
+
+		ll numres = 1, demres = 1;
+		for (auto it = num.begin(); it != num.end(); it++)
+			numres *= *it;
+		for (auto it = dem.begin(); it != dem.end(); it++)
+			demres *= *it;
+		cout <<n<<" things taken "<<m<<" at a time is "<< numres / demres<<" exactly."<<endl;
+	}
+}
+
+	
