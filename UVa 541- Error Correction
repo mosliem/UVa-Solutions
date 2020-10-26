@@ -1,0 +1,52 @@
+// accepted error correction cpp
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+#define ll long long
+int oddCol, oddRow, numRow, numCol;
+void check(int arr[][102] ,int n)
+{
+	int sumr = 0, sumc = 0 , j;
+	oddCol = oddRow = numRow = numCol = 0;
+	for (int i = 1; i <= n; i++)
+	{
+		for (j = 1; j <= n; j++)
+		{
+			sumr += arr[i][j]; // sum of row
+			sumc += arr[j][i]; // sum of col 
+		}
+		if (sumr % 2 != 0)
+		{
+			numRow = i;
+			oddRow++;
+		}
+		if (sumc % 2 != 0)
+		{
+			numCol = i;
+			oddCol++;
+		}
+		sumc = 0, sumr = 0;
+	}
+}
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		if (n == 0)
+			break;
+		int arr[102][102];
+		for(int i = 1 ; i <= n;i++)
+			for (int j = 1; j <= n; j++)
+				cin >> arr[i][j];
+
+		check(arr, n);
+		if (oddCol == 0 && oddRow == 0)
+			cout << "OK" << endl;
+		else if (oddCol == 1 && oddRow == 1)
+			cout << "Change bit (" << numRow << "," << numCol << ")" << endl;
+		else
+			cout << "Corrupt" << endl;
+	}
+}
