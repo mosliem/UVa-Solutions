@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+#define ll long long
+int main()
+{
+	string a;
+	int x = 1;
+	while (cin>>a)
+	{
+		int n;
+		cin >> n;
+		for (int i = 0; i < n; i++)
+		{
+			int ix, jx;
+			cin >> ix >> jx;
+			bool f = true;
+			int st = min(ix, jx), end = max(ix, jx);
+			for (int j = st; j < end; j++)
+			{
+				if (a[j] != a[j + 1])
+				{
+					f = false;
+					break;
+				}
+			}
+			if(i == 0)
+				cout << "Case " << x << ":" << endl;
+			if (f)
+				cout << "Yes" << endl;
+			else
+				cout << "No" << endl;
+		}
+		x++;
+	}
+     
+}
