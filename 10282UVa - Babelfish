@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+	string x , n,m;
+	vector<pair<string, string>> word;
+	
+  while (getline(cin , x )&&x!="")
+	{
+		stringstream ss(x);
+		ss >> n >> m;
+		word.push_back(make_pair(m, n));
+	}
+	
+  sort(word.begin(), word.end());
+	
+  vector<string> f;
+	for (auto it = word.begin(); it != word.end(); it++)
+		f.push_back(it->first);
+	string s;
+	while (cin >> s)
+	{
+		int ind = lower_bound(f.begin(), f.end(), s) - f.begin();
+		if (word[ind].first == s)
+			cout << word[ind].second << endl;
+		else
+			cout << "eh" << endl;
+       }
+}
