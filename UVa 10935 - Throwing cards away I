@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <queue>
+#include <vector>
+using namespace std;
+#define ll long long
+
+int main()
+{
+	int n;
+	while (cin >> n && n != 0)
+	{
+		vector<int>cards(n);
+		if (n == 1)
+		{
+			cout << "Discarded cards:"<<endl;
+			cout << "Remaining card: " << "1" << endl;
+			continue;
+		}
+		for (int i = 0; i < n; i++)
+			cards[i] = i + 1;
+		int arr[52] , i = 0;
+		while (cards.size() >= 2)
+		{
+			arr[i++] = cards.front();
+			auto it = cards.begin();
+			cards.erase(it);
+			cards.push_back(cards.front());
+			it = cards.begin();
+			cards.erase(it);
+		}
+		cout << "Discarded cards: "<<arr[0];
+		if (n > 2)
+		{
+			cout << ", ";
+			for (int i = 1; i < n - 2; i++)
+			{
+				cout << arr[i] << ", ";
+			}
+
+			cout << arr[n - 2] << endl;
+		}
+		else
+			cout << endl;
+		cout << "Remaining card: " << cards[0] << endl;
+	}
+}
